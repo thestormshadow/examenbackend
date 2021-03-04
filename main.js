@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 
 connection.connect(function(error){
     if(error){
-       throw error;
+       console.log(error);
     }else{
        console.log('DB Ready.');
     }
@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
 app.get('/cars', (req, res) => {
     var query = connection.query("select * from cars", [], function(error, result){
         if(error)
-           throw error;
+           console.log(error);
         res.json(result);
     });    
 });
@@ -49,7 +49,7 @@ app.get('/maintenancePerson/:idc', (req, res) => {
     const idc = req.params.idc;
     var query = connection.query("select * from maintenance where idcar="+idc, [], function(error, result){
         if(error)
-           throw error;
+            console.log(error);
         res.json(result);
     });    
 });
@@ -59,12 +59,12 @@ app.post('/register', (req, res) => {
     console.log(obj);
     var query = connection.query("insert into maintenance(idcar,person,date) values(?, ?, ?)", [obj.idCar,obj.person,obj.date], function(error, result){
         if(error)
-           throw error;        
+           console.log(error);       
     });
 
     var query = connection.query("update cars set inMaintenance = 1 where id = ?", [obj.idCar], function(error, result){
         if(error)
-           throw error;        
+           console.log(error);      
     });
 });
 
