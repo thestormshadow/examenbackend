@@ -30,12 +30,7 @@ connection.connect(function(error){
  });
 
  connection.on('error', err => {
-    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-        // db error reconnect
-        disconnect_handler();
-    } else {
-        throw err;
-    }
+    console.log(err);
 });
 
 app.get('/', (req, res) => {
