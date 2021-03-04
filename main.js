@@ -16,10 +16,27 @@ const connection = mysql.createConnection({
 
 let cars = [];
 
-app.use(cors());
+//app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+connection.connect(function(error){
+    if(error){
+       throw error;
+    }else{
+       console.log('DB Ready.');
+    }
+ });
+
+ connection.on('error', err => {
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+        // db error reconnect
+        disconnect_handler();
+    } else {
+        throw err;
+    }
+});
 
 app.get('/', (req, res) => {
     res.send('Wellcome');
