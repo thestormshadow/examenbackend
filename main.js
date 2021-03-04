@@ -21,6 +21,10 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.get('/', (req, res) => {
+    res.send('Wellcome');
+});
+
 app.get('/cars', (req, res) => {
     var query = connection.query("select * from cars", [], function(error, result){
         if(error)
